@@ -116,7 +116,7 @@
 	The analytical method takes running time of $O(N^2D)$, for matrix $M\times D$. Sometimes it is too slow to use the analytical method, as well as the memory of the computer might not be enough for a single set of data.
 	\paragraph{How Do We Do It?}
 	The Gradient Descent Method is simply to calculate the gradient of the function at a initial point so that the fastest descending direction of the function can be found. Then let the function go towards that direction and take the gradient again, so and so forth. We continue iterating the process until the function value is close enough to the last result.
-	
+
 	Normally, we take the minmun value of the function, and if we want a max of the function, we simply take the min of its negative version. Therefore, we have the following steps.
 	\\\\
 	fundamental equation:
@@ -134,15 +134,15 @@
 		w_{t+1} = w_t - \eta \nabla J(w_t) = w_t + 2\eta X^T(y - Xw_t)
 	\end{displaymath}
 	in which $(y - Xw_t)$ is the residua of the prediction.
-	
+
 	With the equations above, we substitude 0 or a small random data set into the equations as initial values, then iteratively calculate the $w$ according to a certain learning rate $\eta$, until it satisfies the breaking condition. The breaking condition can be:
-	
+
 	1. Iterating time meets the maximun value;
-	
+
 	2.\begin{equation}
 		\frac{J(w_t)-J(w_{t+1})}{J(w_t)} \le \epsilon;
 	\end{equation}
-	
+
 	There, we have the full process of simple Gradient Discent Method. Mind that the choice of the learning rate is important. If learning rate is too large, in the end, there might be oscillation in the result.
 	\paragraph{Ridge Regression}
 	\begin{gather*}
@@ -159,7 +159,7 @@
 	In some cases like Lasso, when absolute value is involved and the function is not continuous at some points, the original concept of derivative and maximizing function is not valid. At the incontinuous point, there could be many lines which satisfy the feature of tangency, which is that around the certain point, the line does not cross the function as well as has a single intersection point with the function. There can be a group of lines here, whose slope make up the set of the subderivative. According to the defination, the subderivative is noted as $\partial f(x_0)$, also:
 	\begin{displaymath}
 		\partial f(x_0) \in
-		[a,b]\qquad where\quad 
+		[a,b]\qquad where\quad
 		a = \lim_{x \rightarrow x_0^-} \frac{f(x)-f(x_0)}{x-x_0},
 		b = \lim_{x \rightarrow x_0^+} \frac{f(x)-f(x_0)}{x-x_0}
 	\end{displaymath}
@@ -172,7 +172,7 @@
 			\end{array} \right.
 	\end{displaymath}
 	Obviously, if the function is continuous, the subderivative set contains only its derivative. Similarly, we define Subgradient for multivariable functions. If 0 is included in the Subgradient set, we have the critical point.
-	
+
 	There, we can apply the gradient descent method to incontinuous functions, changing the ending condition into the set is small enough and includes 0. The gradient here is not always descending, therefore, we take all of the calulated $f(x_{t})$ and take their minimun.
 	\subsubsection{Coordinate Descent Method}
 	Instead of taking all of the dimensions into consideration at the same time, this time, we only take one dimension each time and find the minimun value.
@@ -182,7 +182,7 @@
 	\end{displaymath}
 	For the jth dimension:
 	\begin{displaymath}\begin{aligned}
-		\frac{\partial}{\partial w_j} RSS(w) 
+		\frac{\partial}{\partial w_j} RSS(w)
 		&= \frac{\partial}{\partial w_j} \sum_{i=1}^{N}(y_i - (w_{-j}^Tx_{i,-j} + w_jx_{ij}))^2\\
 		&= -2\sum_{i=1}^N (y_i - w^T_{-j}x_{i,-j} - w_ix_{ij})x_{ij}\\
 		&= 2\sum_{i=1}^N x_{ij}^2w_j - 2\sum_{i=1}^N (y_i - w^T_{-j}x_{i,-j)})x_{ij}\\
@@ -221,6 +221,7 @@
 	\paragraph{Bootstrap}
 	For the Cross Validation mentioned above, we are taking one peice of data sample each time and make sure the same data will not be taken again. Here, we change our way of taking subsamples and take randomly $\frac{1}{N}$ of the sample each time, regardless of whether the data has been taken before. Therefore, after N times of taking subsamples, the probability of a certain peice of data having not been taken for a single time is $(1-\frac{1}{N})^N$, which goes to 0.368, which means only around $63.2\%$ of the sample is taken with Bootstrap.
 \subsection{Feature Engineering}
+jf
 \subsubsection{Noise}
 \subsubsection{Saperation}
 \subsubsection{Encoding}
