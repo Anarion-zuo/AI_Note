@@ -220,8 +220,23 @@
 	Furthermore, it is better that we try different $\lambda$ and get a fitter result.
 	\paragraph{Bootstrap}
 	For the Cross Validation mentioned above, we are taking one peice of data sample each time and make sure the same data will not be taken again. Here, we change our way of taking subsamples and take randomly $\frac{1}{N}$ of the sample each time, regardless of whether the data has been taken before. Therefore, after N times of taking subsamples, the probability of a certain peice of data having not been taken for a single time is $(1-\frac{1}{N})^N$, which goes to 0.368, which means only around $63.2\%$ of the sample is taken with Bootstrap.
-\subsection{Feature Engineering}
-jf
+\subsection{Exploratory Data Analysis(EDA)}
+\subsubsection{Basic Information}
+By the time we start, there are some basic things we need to figure out.
+\begin{enumerate}
+	\item Dimension of the sample
+	\item Amount of the sample
+	\item Physical meaning of each dimension
+	\item Type of each dimension, categorical features or discrete features or numeric feature
+\end{enumerate}
+\subsubsection{Behavior of Each Dimension}
+\begin{enumerate}
+	\item Display basic statistical magnitude, mean, variance, quantiles.
+	\item A glimpse of distributions of each dimension by a histogram. Most of the numeric features are usually normally distrubuted. If not, it might be that some data out of a certain range is counted into the lower and upper bound, thus both ends might behave unordinarily large, therefore might be dumped.
+	\item A glimpse of correlations between dimensions. Build the correlation matrix with heat map. For the dimensions that are strongly linearly correlated perceived from the matrix, print out the scatter diagram of the two dimensions. 
+\end{enumerate}
+\subsection{Feature Engineering(FE)}
+
 \subsubsection{Noise}
 \subsubsection{Saperation}
 \subsubsection{Encoding}
