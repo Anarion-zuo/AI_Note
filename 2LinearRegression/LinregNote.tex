@@ -236,21 +236,22 @@ By the time we start, there are some basic things we need to figure out.
 	\item A glimpse of correlations between dimensions. Build the correlation matrix with heat map. For the dimensions that are strongly linearly correlated perceived from the matrix, print out the scatter diagram of the two dimensions.
 \end{enumerate}
 \subsection{Feature Engineering(FE)}
+	\paragraph{Drop Gargage}
 	Delete the data that is obviously out of range, where the $3\sigma$ rulemight be applied.
-
+	\paragraph{Saparation}
 	Saparate the sample into the input and output parts. It might be atempted that we apply some function, log, exponential, power, etc, upon the output sample.
-
+	\paragraph{Encoding}
 	Encode the discrete featured data, where-hot Encoding is generally favored. For the discrete featured data having k possible outcomes, we expand it into k dimensions of discrete featured data having only 0 or 1 as outcome.
 
-	Standardization.
+	\paragraph{Standardization}
 	\begin{displaymath}
 		X_{standard} = \frac{X - \mu}{\sigma}
 	\end{displaymath}
-	
+
 	from sklearn.preprocessing import StandardScaler
 
-	A StandardScaler class must be created in advance. Then call fit_transform with input data that required standardization. The function returns result in np.ndarray.
+	A StandardScaler class must be created in advance. Then call fit\_transform with input data that required standardization. The function returns result in np.ndarray.
 
-	Save the result of FE.
+	\paragraph{Save the result of FE}
 
 \end{document}
