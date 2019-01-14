@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1547223029 "LinregNote.tex" "LinregNote.pdf" "LinregNote" 1547223030
+["pdflatex"] 1547223029 "LinregNote.tex" "LinregNote.pdf" "LinregNote" 1547281954
   "LinregNote.aux" 1547223030 3496 07c7138bca0e041f6a864ad3210fd6b8 ""
   "LinregNote.tex" 1547223027 15919 7c5f6af6f0bb6ce5a55a0fdad087014f ""
   "d:/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1547200352 3332 103109f5612ad95229751940c61aada0 ""
@@ -37,5 +37,5 @@
   "d:/texlive/2018/texmf.cnf" 1547202283 673 4ae7b2f49cee444c5343a45b5d0f169c ""
   (generated)
   "LinregNote.pdf"
-  "LinregNote.aux"
   "LinregNote.log"
+  "LinregNote.aux"
