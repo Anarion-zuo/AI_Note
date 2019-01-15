@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LinregNote.md</title><script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: ["[a11y]/accessibility-menu.js"],
+    'HTML-CSS': {
+      availableFonts: [],
+      webFont: 'TeX',
+      undefinedFamily: "serif",
+      mtextFontInherit: true,
+    },
+    TeX: {
+  "Macros": {},
+  "equationNumbers": {
+    "autoNumber": "AMS",
+    "useLabelIds": false
+  },
+  "extensions": [
+    "AMSmath.js",
+    "AMSsymbols.js",
+    "noErrors.js",
+    "noUndefined.js",
+    "AMSmath.js"
+  ]
+},
+    showMathMenu: true
+  });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js"></script>
+    <style>.emoji {
+  max-width: 1em !important;
+}
+del {
+  text-decoration: none;
+  position: relative;
+}
+del::after {
+  border-bottom: 1px solid black;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+ul.contains-task-list li.task-list-item {
+  position: relative;
+  list-style-type: none;
+}
+ul.contains-task-list li.task-list-item input.task-list-item-checkbox {
+  position: absolute;
+  transform: translateX(-100%);
+  width: 30px;
+}
+span.critic.comment {
+  position: relative;
+}
+span.critic.comment::before {
+  content: '\1f4ac';
+  position: initial;
+}
+span.critic.comment > span {
+  display: none;
+}
+span.critic.comment:hover > span {
+  display: initial;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid;
+  border-radius: 5px;
+  max-height: 4em;
+  overflow: auto;
+}
+span.critic.comment:focus > span {
+  display: initial;
+  text-decoration: underline;
+  position: initial;
+  top: auto;
+  left: auto;
+  border: initial;
+  border-radius: initial;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+body {
+  overflow: initial !important;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  line-height: 1.6;
+  word-wrap: break-word;
+  padding: 30px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+}
+body > *:first-child {
+  margin-top: 0 !important;
+}
+body > *:last-child {
+  margin-bottom: 0 !important;
+}
+body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+body .absent {
+  color: #c00;
+}
+body .anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+body .anchor:focus {
+  outline: none;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+body h1 .octicon-link,
+body h2 .octicon-link,
+body h3 .octicon-link,
+body h4 .octicon-link,
+body h5 .octicon-link,
+body h6 .octicon-link {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+body h1:hover .anchor,
+body h2:hover .anchor,
+body h3:hover .anchor,
+body h4:hover .anchor,
+body h5:hover .anchor,
+body h6:hover .anchor {
+  padding-left: 8px;
+  margin-left: -30px;
+  text-decoration: none;
+}
+body h1:hover .anchor .octicon-link,
+body h2:hover .anchor .octicon-link,
+body h3:hover .anchor .octicon-link,
+body h4:hover .anchor .octicon-link,
+body h5:hover .anchor .octicon-link,
+body h6:hover .anchor .octicon-link {
+  display: inline-block;
+}
+body h1 tt,
+body h2 tt,
+body h3 tt,
+body h4 tt,
+body h5 tt,
+body h6 tt,
+body h1 code,
+body h2 code,
+body h3 code,
+body h4 code,
+body h5 code,
+body h6 code {
+  font-size: inherit;
+}
+body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+body h1 .anchor {
+  line-height: 1;
+}
+body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+body h2 .anchor {
+  line-height: 1;
+}
+body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+body h3 .anchor {
+  line-height: 1.2;
+}
+body h4 {
+  font-size: 1.25em;
+}
+body h4 .anchor {
+  line-height: 1.2;
+}
+body h5 {
+  font-size: 1em;
+}
+body h5 .anchor {
+  line-height: 1.1;
+}
+body h6 {
+  font-size: 1em;
+  color: #777;
+}
+body h6 .anchor {
+  line-height: 1.1;
+}
+body p,
+body blockquote,
+body ul,
+body ol,
+body dl,
+body table,
+body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+body ul,
+body ol {
+  padding-left: 2em;
+}
+body ul.no-list,
+body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+body ul ul,
+body ul ol,
+body ol ol,
+body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+body li > p {
+  margin-top: 16px;
+}
+body dl {
+  padding: 0;
+}
+body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+body blockquote > :first-child {
+  margin-top: 0;
+}
+body blockquote > :last-child {
+  margin-bottom: 0;
+}
+body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+body table th {
+  font-weight: bold;
+}
+body table th,
+body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+body img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body .emoji {
+  max-width: none;
+}
+body span.frame {
+  display: block;
+  overflow: hidden;
+}
+body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+body span.frame span img {
+  display: block;
+  float: left;
+}
+body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #333;
+}
+body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+body span.float-left span {
+  margin: 13px 0 0;
+}
+body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+body code,
+body tt {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
+}
+body code:before,
+body tt:before,
+body code:after,
+body tt:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+body code br,
+body tt br {
+  display: none;
+}
+body del code {
+  text-decoration: inherit;
+}
+body pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+body .highlight {
+  margin-bottom: 16px;
+}
+body .highlight pre,
+body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+body pre {
+  word-wrap: normal;
+}
+body pre code,
+body pre tt {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+body pre code:before,
+body pre tt:before,
+body pre code:after,
+body pre tt:after {
+  content: normal;
+}
+body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+span.critic.comment > span {
+  background-color: #fff;
+}
+a {
+  color: #337ab7;
+}
+
+.bracket-matcher .region {
+  border-bottom: 1px dotted lime;
+  position: absolute;
+}
+.line-number.bracket-matcher.bracket-matcher {
+  color: #abb2bf;
+  background-color: #3a3f4b;
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors .gutter .line-number {
+  /* Use CSS specificity to force errors to override warnings and info markers */
+  /* Use CSS specificity to force warnings to override info markes. */
+}
+pre.editor-colors .gutter .line-number.latex-error,
+pre.editor-colors .gutter .line-number.latex-error.latex-warning,
+pre.editor-colors .gutter .line-number.latex-error.latex-info,
+pre.editor-colors .gutter .line-number.latex-error.latex-warning.latex-info {
+  border-left: 2px solid #d13b2e;
+  padding-left: calc(0.5em - 2px);
+}
+pre.editor-colors .gutter .line-number.latex-warning,
+pre.editor-colors .gutter .line-number.latex-warning.latex-info {
+  border-left: 2px solid #ad7c0b;
+  padding-left: calc(0.5em - 2px);
+}
+pre.editor-colors .gutter .line-number.latex-info {
+  border-left: 2px solid #0f82e6;
+  padding-left: calc(0.5em - 2px);
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #3a3f4b;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string > .syntax--source,
+.syntax--string .syntax--embedded {
+  color: #abb2bf;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: white !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--source.syntax--embedded.syntax--source {
+  color: #abb2bf;
+}
+.syntax--source.syntax--elixir .syntax--constant.syntax--language,
+.syntax--source.syntax--elixir .syntax--constant.syntax--numeric,
+.syntax--source.syntax--elixir .syntax--constant.syntax--definition {
+  color: #61afef;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--definition,
+.syntax--source.syntax--elixir .syntax--variable.syntax--anonymous {
+  color: #c678dd;
+}
+.syntax--source.syntax--elixir .syntax--parameter.syntax--variable.syntax--function {
+  color: #d19a66;
+  font-style: italic;
+}
+.syntax--source.syntax--elixir .syntax--quoted {
+  color: #98c379;
+}
+.syntax--source.syntax--elixir .syntax--keyword.syntax--special-method,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--section,
+.syntax--source.syntax--elixir .syntax--embedded.syntax--source.syntax--empty {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--readwrite.syntax--module .syntax--punctuation {
+  color: #e06c75;
+}
+.syntax--source.syntax--elixir .syntax--regexp.syntax--section,
+.syntax--source.syntax--elixir .syntax--regexp.syntax--string {
+  color: #be5046;
+}
+.syntax--source.syntax--elixir .syntax--separator,
+.syntax--source.syntax--elixir .syntax--keyword.syntax--operator {
+  color: #d19a66;
+}
+.syntax--source.syntax--elixir .syntax--variable.syntax--constant {
+  color: #e5c07b;
+}
+.syntax--source.syntax--elixir .syntax--array,
+.syntax--source.syntax--elixir .syntax--scope,
+.syntax--source.syntax--elixir .syntax--section {
+  color: #828997;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--ts .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--flow .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--ng.syntax--interpolation {
+  color: #e06c75;
+}
+.syntax--ng.syntax--interpolation.syntax--begin,
+.syntax--ng.syntax--interpolation.syntax--end {
+  color: #61afef;
+}
+.syntax--ng.syntax--interpolation .syntax--function {
+  color: #e06c75;
+}
+.syntax--ng.syntax--interpolation .syntax--function.syntax--begin,
+.syntax--ng.syntax--interpolation .syntax--function.syntax--end {
+  color: #61afef;
+}
+.syntax--ng.syntax--interpolation .syntax--bool {
+  color: #d19a66;
+}
+.syntax--ng.syntax--interpolation .syntax--bracket {
+  color: #abb2bf;
+}
+.syntax--ng.syntax--pipe,
+.syntax--ng.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--ng.syntax--tag {
+  color: #56b6c2;
+}
+.syntax--ng.syntax--attribute-with-value .syntax--attribute-name {
+  color: #e5c07b;
+}
+.syntax--ng.syntax--attribute-with-value .syntax--string {
+  color: #c678dd;
+}
+.syntax--ng.syntax--attribute-with-value .syntax--string.syntax--begin,
+.syntax--ng.syntax--attribute-with-value .syntax--string.syntax--end {
+  color: #abb2bf;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--php .syntax--class.syntax--bracket {
+  color: #abb2bf;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed and saved.
+ *
+ * Add your own CSS or Less to fully customize Atom.
+ * If you are unfamiliar with Less, you can read more about it here:
+ * http://lesscss.org
+ */
+/*
+ * Examples
+ * (To see them, uncomment and save)
+ */
+</style>
+
+  </head>
+  <body>
+    <h1>Linear Regression</h1>
+<h2>Residual and Regular</h2>
+<h3>Residual</h3>
+<p>For given data set <span class="math"><script type="math/tex">x</script></span> and <span class="math"><script type="math/tex">y</script></span>, we try to find the relation between them therefore make use of our research, which means:</p>
+<span class="math"><script type="math/tex; mode=display">D=\{x_i, y_i\}^N_{i=1}\qquad find \quad y = f(x)
+</script></span>
+<p>For the simplest case, which is linear regression, we want to find vector w, so that,</p>
+<span class="math"><script type="math/tex; mode=display">y = w^Tx=\begin{pmatrix}
+w_0 & w_1 & ... & w_D
+\end{pmatrix}
+\begin{pmatrix}
+1 \\ x_1 \\ x_2 \\ ... \\ x_D
+\end{pmatrix}
+= w_0 + \sum_{j=1}^{D}w_jx_j
+</script></span>
+<p>where vector <span class="math"><script type="math/tex">w</script></span> is the goal of the process, known as Regression Coefficient, while D stands for the number of dimensions. Note that <span class="math"><script type="math/tex">w_0</script></span>, the Bias, is specifically listed out so that the constant term is not ignored. The Goal, however, is to let the error of the approximation be as little as possible, although we cannot be absolutely sure how close is our model to the real world. Anyway, it is still a practicle model if the real world does not change rapidly and randomly, and if the error of the model under known data set is minimized. Therefore, we have the method of minimizing ERROR. We take the ERROR simply to be the difference between the model and the real data. <span class="math"><script type="math/tex">r=y-\hat{y}</script></span> where <span class="math"><script type="math/tex">r</script></span> stands for residual, <span class="math"><script type="math/tex">y</script></span> stands for real data, <span class="math"><script type="math/tex">\hat{y}</script></span> stands for estimated data. They are all vectors. Note that in order to prevent the positive and negative value from canceling each other, normally we take 2 kinds of adjustment.</p>
+<span class="math"><script type="math/tex; mode=display">r_{L_1} = |y - \hat{y}|\qquad r_{L_2} = (y - \hat{y})^
+2</script></span>
+<p>There, we want the sum of the squared value of the residual to be minimized.</p>
+<span class="math"><script type="math/tex; mode=display">RSS = \sum_{i=1}^{N}r_i
+</script></span>
+<p>And we take the <span class="math"><script type="math/tex">r_i</script></span> that seems fit to us.</p>
+<h3>Probability Explaination of Residual</h3>
+<p>Here, we are trying to find out why is it the right thing to do that we try to minimize the residual.</p>
+<h4>L2 Case</h4>
+<p>Take: <span class="math"><script type="math/tex">RSS(w) = \sum_{i=1}^{N}L(y_i,\hat{y_i}) = \sum_{i=1}^{N}(y_i - f(x_i))^2</script></span> If the data has a certain noise:</p>
+<span class="math"><script type="math/tex; mode=display">\epsilon \sim N(0,\sigma ^2) \quad y = f(x) + \epsilon \qquad y|_{x = x_i} \sim N(f(x_i), \sigma ^2)
+</script></span>
+<p>Maximum likelihood estimation:</p>
+<span class="math"><script type="math/tex; mode=display">\ln(\prod_{i=1}^{N}p_{y_i|x_i}(y|x=x_i) )
+= -\frac{N}{2}\ln(2\pi) - N\ln\sigma - \sum_{i=1}^{N}\frac{(y_i-f(x_i))^2}{2\sigma ^2}
+</script></span>
+<p>As we can see in the function above, to take the maximun of RHS is to take the minimun of the L2 residual of the model. Therefore, these two are equivalent.</p>
+<h4>L1 Case</h4>
+<p>Take:</p>
+<span class="math"><script type="math/tex; mode=display">RSS(w) = \sum_{i=1}^{N}L(y_i,\hat{y_i}) = \sum_{i=1}^{N}|y_i - f(x_i)|
+</script></span>
+<p>If the data has a certain noise:</p>
+<span class="math"><script type="math/tex; mode=display">\epsilon \sim Laplace(0,b) \quad y = f(x) + \epsilon \qquad y_{i|x=x_i} \sim Laplace(f(x_i),b)
+\sim p_{y|x=x_i}(y|x=x_i) = \frac{1}{2b} e^{-\frac{|y-f(x_i)|}{b}}</script></span>
+<p>Maximum likelihood estimation:</p>
+<span class="math"><script type="math/tex; mode=display">\ln(\prod_{i=1}^{N}p_{y_i|x_i}(y|x=x_i))
+= -\ln(2b) - \sum_{i=1}^{N}\frac{|y_i-f(x_i)|}{b}</script></span>
+<h4>Differeces between L1 and L2</h4>
+<p>L1 method is not sensitive to noise while L2 method is very sensitive to noise, which means noise data has a larger weight in L2 model. However, L1 function has a major disadvantage, which is its incontinuity, therefore finding its minimun value can be hard. In order to combine the ups and eliminate the downs of the two models, we have the Huber method.</p>
+<span class="math"><script type="math/tex; mode=display">L_\delta(r) = \left\{ \begin{array}{ll}
+\frac{1}{2}r^2 & |r| \le \delta \\
+\delta |r| - \frac{1}{2}\delta ^2 & others
+\end{array} \right.
+</script></span>
+<h3>Over Regression</h3>
+<p>For given data set, we tend to fit our model into the data set as much as possible. Thus in some cases, we manage to let the model fit every bit of the data set, or nearly achieve that. It is not hard for us to do so, for the simpliest method of polynomial regression. If we have a data set with the amount of <span class="math"><script type="math/tex">n</script></span>, we simply need to construct a model holding <span class="math"><script type="math/tex">n</script></span>th power. However, even if the model seems to fit well enough, under the real circumstance, it will not fit, for every data set has its particularity and we should not try to maximize that in our model. Therefore, we want to hold the training error to be small and also hold the testing error to be small. The case of training error is very small and testing error is large is called Over Regression, meaning that the model is too fit for the training data thus too unfit for the real world.</p>
+<h3>Regular Term</h3>
+<p>In order to prevent over regression from happening, we have the method of adding a regular term. <span class="math"><script type="math/tex">R(w)</script></span> is the Regular Term.</p>
+<h4>L2 Loss + L2 Regular: Ridge</h4>
+<span class="math"><script type="math/tex; mode=display">J(w,\lambda) = \sum_{i=0}^{N} r^2 + \lambda \sum_{j=1}^{N} w_j^2 \qquad where\quad R(w) = \lambda \sum_{j=1}^{N} w_j^2</script></span>
+<p>The process of constructing the model becomes finding the minimun value of <span class="math"><script type="math/tex">J</script></span>. Note that we do not add punishment AKA regulation upon the Bias term and <span class="math"><script type="math/tex">j</script></span> starts at 1. It is important for us to choose an appropriate <span class="math"><script type="math/tex">\lambda</script></span>. It is better to nondimensionalize the data set upon all dimensions. Same thing holds for the others.</p>
+<h4>L2 Loss + L1 Regular: Lasso</h4>
+<span class="math"><script type="math/tex; mode=display">R(w) = \sum_{j=1}^{N}|w_j|
+</script></span>
+<h4>L2 Loss + Both Regular: Elastic Net</h4>
+<span class="math"><script type="math/tex; mode=display">R(w) = \sum_{j=1}^{N}(\rho |w_j| + \frac{1 - \rho}{2}w_j^2)
+</script></span>
+<h3>Probability Explaination of Regular</h3>
+<h2>Analytic Solution of OLS</h2>
+<h4>OLS Formular</h4>
+<span class="math"><script type="math/tex; mode=display">J(w) = \sum_{i=1}^{N}(y_i - f(x_i))^2
+</script></span>
+<h4>Goal</h4>
+<span class="math"><script type="math/tex; mode=display">\hat{w} = argmin_w J(w)
+</script></span>
+<h4>Requirement</h4>
+<span class="math"><script type="math/tex; mode=display">\frac{\partial J(w)}{\partial w} = 0
+</script></span>
+<h4>Normal Equation</h4>
+<span class="math"><script type="math/tex; mode=display">\begin{gathered}
+J(w) = ||y - Xw||^2_2 = (y - Xw)^T(y - Xw) = y^Ty - y^TXw - w^TX^Ty + w^TX^TXw\\
+\frac{\partial J(w)}{\partial w} = -2X^Ty + 2X^TXw = 0 \qquad X^TXw = X^Ty\qquad
+\hat{w}_{OLS} = (X^TX)^{-1}X^Ty
+\end{gathered}</script></span>
+<h2>Gradient Descent Method(GD)</h2>
+<h4>Why do We Need It?</h4>
+<p>The analytical method takes running time of <span class="math"><script type="math/tex">O(N^2D)</script></span>, for matrix <span class="math"><script type="math/tex">M\times D</script></span>. Sometimes it is too slow to use the analytical method, as well as the memory of the computer might not be enough for a single set of data.</p>
+<h4>How Do We Do It?</h4>
+<p>The Gradient Descent Method is simply to calculate the gradient of the function at a initial point so that the fastest descending direction of the function can be found. Then let the function go towards that direction and take the gradient again, so and so forth. We continue iterating the process until the function value is close enough to the last result.</p>
+<p>Normally, we take the minmun value of the function, and if we want a max of the function, we simply take the min of its negative version. Therefore, we have the following steps.<br>
+<br>
+fundamental equation:</p>
+<span class="math"><script type="math/tex; mode=display">x_{t+1} = x + \Delta x = x_{t} - \eta \nabla f(x)\qquad for\quad \eta \ge 0
+</script></span>
+<h4>under the OLS case:</h4>
+<span class="math"><script type="math/tex; mode=display">J(w) = \sum_{i=1}^{n}(y_i-w^Tx_i)^2 = ||y - Xw||^2_2 = (y-Xw)^T(y-Xw)
+</script></span>
+<p>gradient:</p>
+<span class="math"><script type="math/tex; mode=display">\nabla J(w) = -2X^Ty + 2X^TXw = -2X^T(y - Xw)
+</script></span>
+<p>plug into the iteration:</p>
+<span class="math"><script type="math/tex; mode=display">w_{t+1} = w_t - \eta \nabla J(w_t) = w_t + 2\eta X^T(y - Xw_t)
+</script></span>
+<p>in which <span class="math"><script type="math/tex">(y - Xw_t)</script></span> is the residua of the prediction.</p>
+<p>With the equations above, we substitude 0 or a small random data set into the equations as initial values, then iteratively calculate the <span class="math"><script type="math/tex">w</script></span> according to a certain learning rate <span class="math"><script type="math/tex">\eta</script></span>, until it satisfies the breaking condition. The breaking condition can be:</p>
+<p>1. Iterating time meets the maximun value;</p>
+<ol start="2">
+<li></li>
+</ol>
+<span class="math"><script type="math/tex; mode=display">\frac{J(w_t)-J(w_{t+1})}{J(w_t)} \le \epsilon;
+</script></span>
+<p>There, we have the full process of simple Gradient Discent Method. Mind that the choice of the learning rate is important. If learning rate is too large, in the end, there might be oscillation in the result.</p>
+<h4>Ridge Regression</h4>
+<span class="math"><script type="math/tex; mode=display">\begin{gathered}
+    J(w) = ||y - Xw||^2_2 + \lambda ||w||^2_2\\
+    \nabla J(w) = -2X^Ty + 2X^TXw + 2\lambda w
+\end{gathered}</script></span>
+<h4>Stochastic Gradient Descent(SGD)</h4>
+<p>When the sample is too complex or the gradients upon all dimensions are too alike, it is not so appropriate that we still apply the simple GD method to the sample. Therefore, we now apply the Stochastic GD method.We simply take index t by some approach, usually randomly.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{gathered}
+    \nabla J(w_t) = \nabla L(y_t, f(x_t;w_t)) + \lambda \nabla R(w_t)
+\end{gathered}</script></span>
+<h2>Coordinate Descent Method</h2>
+<h3>Subderivative</h3>
+<p>In some cases like Lasso, when absolute value is involved and the function is not continuous at some points, the original concept of derivative and maximizing function is not valid. At the incontinuous point, there could be many lines which satisfy the feature of tangency, which is that around the certain point, the line does not cross the function as well as has a single intersection point with the function. There can be a group of lines here, whose slope make up the set of the subderivative. According to the defination, the subderivative is noted as <span class="math"><script type="math/tex">\partial f(x_0)</script></span>, also:</p>
+<span class="math"><script type="math/tex; mode=display">\partial f(x_0) \in
+[a,b]\qquad where\quad
+a = \lim_{x \rightarrow x_0^-} \frac{f(x)-f(x_0)}{x-x_0},
+b = \lim_{x \rightarrow x_0^+} \frac{f(x)-f(x_0)}{x-x_0}</script></span>
+<p>The upper and lower bound of subderivative is determined by the left and right limit of the derivative. For example, take <span class="math"><script type="math/tex">f(x) = |x|</script></span>.</p>
+<span class="math"><script type="math/tex; mode=display">\partial f(x) = \left\{\begin{array}{ll}
+-1 & \textrm{(x < 0)}\\
+\left[-1,1\right] & \textrm{(x = 0)}\\
+1 & \textrm{(x > 0)}
+\end{array} \right.</script></span>
+<p>Obviously, if the function is continuous, the subderivative set contains only its derivative. Similarly, we define Subgradient for multivariable functions. If 0 is included in the Subgradient set, we have the critical point.</p>
+<p>There, we can apply the gradient descent method to incontinuous functions, changing the ending condition into the set is small enough and includes 0. The gradient here is not always descending, therefore, we take all of the calulated <span class="math"><script type="math/tex">f(x_{t})</script></span> and take their minimun.</p>
+<h3>Coordinate Descent Method</h3>
+<p>Instead of taking all of the dimensions into consideration at the same time, this time, we only take one dimension each time and find the minimun value. Here, we take the example of Lasso.</p>
+<span class="math"><script type="math/tex; mode=display">J(w) = ||y - Xw||^2_2 + \lambda ||w||_1
+</script></span>
+<p>For the jth dimension:</p>
+<span class="math"><script type="math/tex; mode=display">\begin{aligned}
+    \frac{\partial}{\partial w_j} RSS(w)
+    &= \frac{\partial}{\partial w_j} \sum_{i=1}^{N}(y_i - (w_{-j}^Tx_{i,-j} + w_jx_{ij}))^2\\
+    &= -2\sum_{i=1}^N (y_i - w^T_{-j}x_{i,-j} - w_ix_{ij})x_{ij}\\
+    &= 2\sum_{i=1}^N x_{ij}^2w_j - 2\sum_{i=1}^N (y_i - w^T_{-j}x_{i,-j)})x_{ij}\\
+    &=a_jw_j - c_j
+\end{aligned}</script></span>
+<h2>Evaluation</h2>
+<h3>Rooted Mean Square Error(RMSE)</h3>
+<span class="math"><script type="math/tex; mode=display">RMSE(y,\hat{y}) = \sqrt{\frac{1}{N} \sum_{i=1}^{N}(y_i-\hat{y}_i)^2}
+</script></span>
+<h3>Mean Absolute Error(MAE)</h3>
+<span class="math"><script type="math/tex; mode=display">MAE(y,\hat{y}) = \frac{1}{N} \sum_{i=1}^{N}|y_i-\hat{y}_i|
+</script></span>
+<h3>Median Absolute Error(MedAE)</h3>
+<span class="math"><script type="math/tex; mode=display">MedAE(y,\hat{y}) = median(|y_1-\hat{y}_1|,...,|y_N-\hat{y}_N|)
+</script></span>
+<h3>Mean Squared Logarithmic Error(MSLE)</h3>
+<span class="math"><script type="math/tex; mode=display">MSLE(y,\hat{y}) = \frac{1}{N} \sum_{i=1}^{N}{\ln(1+y_i) - \ln(1+\hat{y}_i)^2}
+</script></span>
+<h3><span class="math"><script type="math/tex">R^2</script></span> Score</h3>
+<span class="math"><script type="math/tex; mode=display">\begin{gathered}
+    SS_{res}(y,\hat{y}) = \frac{1}{N} \sum_{i=1}^{N}(y_i-\hat{y}_i)^2,SS_{tot}(y) = \frac{1}{N}\sum_{i=1}^{N}(y_i - \bar{y})^2\\
+    R^2(y,\hat{y}) = 1 - \frac{SS_{res}(y,\hat{y})}{SS_{tot}(y)}
+\end{gathered}</script></span>
+<h3>Methods</h3>
+<p>Ideally, it can be better if we have a certain data sample to build a model and have extra data sample to examine it. However, we only have one data sample in the real world, therefore we have to divide it into training data and testing data. Here, we introduce a method called Cross Validation. Simply, we divide the sample into N parts and try N times with each time having a different part as the testing data and the rest as training data.</p>
+<span class="math"><script type="math/tex; mode=display">\begin{gathered}
+      \mbox{For the $k$th time}:e_k = e(y_{test_k},f(X_{test\_k};\hat{w}_k;\lambda))\\
+      \mbox{Gather the result for certain $\lambda$}:e_\lambda = \frac{1}{K} \sum_{k=1}^{K}e_k
+\end{gathered}</script></span>
+<p>Furthermore, it is better that we try different <span class="math"><script type="math/tex">\lambda</script></span> and get a fitter result.</p>
+<h4>Bootstrap</h4>
+<p>For the Cross Validation mentioned above, we are taking one peice of data sample each time and make sure the same data will not be taken again. Here, we change our way of taking subsamples and take randomly <span class="math"><script type="math/tex">\frac{1}{N}</script></span> of the sample each time, regardless of whether the data has been taken before. Therefore, after N times of taking subsamples, the probability of a certain peice of data having not been taken for a single time is <span class="math"><script type="math/tex">(1-\frac{1}{N})^N</script></span>, which goes to 0.368, which means only around <span class="math"><script type="math/tex">63.2\%</script></span> of the sample is taken with Bootstrap.</p>
+<h2>Exploratory Data Analysis(EDA)</h2>
+<h3>Import Data Frame</h3>
+<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">df = pd.read_csv("boston_housing.csv")</span></span></span></pre>
+<h3>Basic Information</h3>
+<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">df.info()</span></span></span></pre>
+<p>By the time we start, there are some basic things we need to figure out.</p>
+<ol>
+<li>
+<p>Dimension of the sample.</p>
+</li>
+<li>
+<p>Amount of the sample.</p>
+</li>
+<li>
+<p>Physical meaning of each dimension.</p>
+</li>
+<li>
+<p>Type of each dimension, categorical features or discrete features or numeric features.</p>
+</li>
+</ol>
+<h3>Behavior of Each Dimension</h3>
+<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fig = plt.figure()</span></span></span>
+<span class=""><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">sns.distplot(df["MEDV"], bins=30, kde=True)</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">plt.xlabel("Median value of owner-occupied homes", fontsize=12)</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">plt.show()</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">features = ["MEDV", "CRIM"]  #可以一次指定多个特征</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">df[features].his</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">_, axes = plt.subplots(1, 2, sharey=True, figsize=(6, 4))</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">sns.boxplot(data=df["MEDV"], ax=axes[0]);</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">sns.violinplot(data=df["MEDV"], ax=axes[1]);</span></span></span></pre>
+<ol>
+<li>
+<p>Display basic statistical magnitude, mean, variance, quantiles.</p>
+</li>
+<li>
+<p>A glimpse of distributions of each dimension through a histogram. Most of the numeric features are usually normally distrubuted. If not, it might be that some data out of a certain range is counted into the lower and upper bound, thus both ends might behave unordinarily large, therefore might be dumped.</p>
+</li>
+<li>
+<p>A glimpse of correlations between dimensions. Build the correlation matrix with heat map. For the dimensions that are strongly linearly correlated perceived from the matrix, print out the scatter diagram of the two dimensions.</p>
+</li>
+</ol>
+<h2>Feature Engineering(FE)</h2>
+<h4>Drop Gargage</h4>
+<p>Delete the data that is obviously out of range, where the <span class="math"><script type="math/tex">3\sigma</script></span> rule might be applied.</p>
+<h4>Separation</h4>
+<p>separate the sample into the input and output parts. It might be atempted that we apply some function, log, exponential, power, etc, upon the output sample.</p>
+<h4>Encoding</h4>
+<p>Encode the discrete featured data, where One-hot Encoding is generally favored. For the discretely featured data having k possible outcomes, we expand it into k dimensions of discretely featured data series having only 0 or 1 as outcome.</p>
+<h4>Standardization</h4>
+<span class="math"><script type="math/tex; mode=display">X_{standard} = \frac{X - \mu}{\sigma}
+</script></span>
+<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">from sklearn.preprocessing import StandardScaler</span></span></span>
+<span class=""></span> 
+<span class=""><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">ss_X = StandardScaler()</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">ss_y = StandardScaler()</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">ss_log_y = StandardScaler()</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">X = ss_X.fit_transform(X)</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">y = ss_y.fit_transform(np.array(y).reshape(-1, 1))</span></span></span></pre>
+<p>A StandardScaler class must be created in advance. Then call fit_transform with input data that required standardization. The function returns result in np.ndarray.</p>
+<h4>Save the result of FE</h4>
+<pre class="editor-colors lang-text"><span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fe_data = pd.DataFrame(data = X, columns = feat_names, index = df.index)</span></span></span>
+<span class=""><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fe_data = pd.concat([fe_data, X_cat], axis = 1, ignore_index=False)</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fe_data["MEDV"] = y</span></span></span>
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fe_data["log_MEDV"] = log_y</span></span></span>
+<span></span> 
+<span><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">fe_data.to_csv('FE_boston_housing.csv', index=False)</span></span></span></pre>
+
+  </body>
+</html>
