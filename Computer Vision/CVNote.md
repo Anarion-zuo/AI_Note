@@ -104,3 +104,32 @@ $$
 \end{gather*}
 $$
 2. Find the mdian value of the selected pixels. Set it to be the output.
+
+## Dilation and Erosion
+Notation:
+$$
+A \oplus B = \bigcup_{b \in B} (A)_{b}\\
+A \Theta B = \bigcap_{b \in B} (A)_{-b}
+$$
+We have our original image and a structure operator, and we move the original picture according to the structure operator. The 2 operator can combine with each other and become a new kind of operation.
+
+Opening Operation:
+$$
+A \circ B = (A \Theta B) \oplus B
+$$
+Closing Operation:
+$$
+A \bullet B = (A \oplus B)\Theta B
+$$
+Apply Opening then Closing, the operation can effectively firlt all kinds of noises.
+
+## OpenCV
+    //高斯滤波
+    void GaussianBlur( InputArray src, OutputArray dst, Size ksize, double sigmaX, double sigmaY = 0, int borderType = BORDER_DEFAULT );
+
+    //中值滤波
+    void medianBlur( InputArray src, OutputArray dst, int ksize );
+
+    //形态学滤波
+    void morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar& borderValue=morphologyDefaultBorderValue() );
+    //op: MORPH_OPEN – 开运算; MORPH_CLOSE – 闭运算 等
