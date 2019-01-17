@@ -65,7 +65,7 @@ $$
 \end{pmatrix}
 \end{gather*}
 $$
-The Gauss Module is symmetric. Nearer it is to the center, larger the number is, which reminds us of the Gauss distribution.
+The Gauss Module is symmetric. Nearer it is to the center, larger the number is, because it follows the Gauss distribution upon X and Y axis.
 ## Median Filtering
 For some noise called the Salt-and pepper Noise, the median filter has a good effect. It follows the following steps:
 1. Pick some pixels in the filter box. Usually like:
@@ -133,3 +133,83 @@ Apply Opening then Closing, the operation can effectively firlt all kinds of noi
     //形态学滤波
     void morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar& borderValue=morphologyDefaultBorderValue() );
     //op: MORPH_OPEN – 开运算; MORPH_CLOSE – 闭运算 等
+# Boundary
+There is lots of information contained inside the boundary of an image. In fact, most of the information we get from an image comes from boundaries. To find the boudaries inside an image, we take the derivative of the image to find the maximun value of the derivative, where the color of the image changes rapidly. Therefore, some kind of boundary can be found.
+## Robert Operator
+$$
+\begin{gather*}
+x-axis:\quad \begin{pmatrix}
+1 & 0 \\ 0 & -1 \\
+\end{pmatrix}\qquad
+y-axis:\quad \begin{pmatrix}
+0 & 1 \\ -1 & 0 \\
+\end{pmatrix}
+\end{gather*}
+$$
+To write the formular in a mathmatical form:
+$$
+E_x = \frac{\partial f(x,y)}{\partial x} = f(x,y)-f(x-1,y-1)\\
+E_y = \frac{\partial f(x,y)}{\partial x} = f(x-1,y)-f(x,y-1)
+$$
+Simply, we take the partial derivative at each position of the image.
+## Sobel Operator
+A better way to compute partial derivative.
+$$
+x-axis:
+\begin{pmatrix}
+-1 & -2 & -1 \\
+0 & 0 & 0 \\
+1 & 2 & 1 \\
+\end{pmatrix} \quad
+y-axis:
+\begin{pmatrix}
+-1 & 0 & 1 \\
+-2 & 0 & 2 \\
+-1 & 0 & 1 \\
+\end{pmatrix}
+$$
+$$
+\frac{\partial f(x,y)}{\partial x} = [f(x-1,y+1)+2f(x,y+1)+f(x+1,y+1)]-[f(x-1,y-1)+2f(x,y-1)+f(x+1,y-1)]\\
+\frac{\partial f(x,y)}{\partial y} = [f(x-1,y-1)+2f(x-1,y)+f(x-1,y+1)]-[f(x+1,y-1)+2f(x+1,y)+f(x+1,y+1)]
+$$
+To take the result as a vector:
+$$
+M(x,y) = \sqrt {E_{x}^2(x,y) + E^2_y(x,y)}\\
+\theta (x,y) = tan^{-1}\frac{E_y(x,y)}{E_x(x,y)}
+$$
+## Laplace Operator
+By taking the first derivative, we find the maximun value thereby find the boundary. It is also a valid method that we take the second derivative thereby find the zero of the second derivative, thereby find the critical point of the first derivative.
+$$
+\Delta f(x,y) = \nabla ^2 f(x,y) = \frac{\partial ^2 f}{\partial x^2} + \frac{\partial ^2 f}{\partial y^2}\\
+= f(x+1,y) + f(x-1,y) + f(x,y+1) + f(x,y-1) - 4f(x,y)\\
+\begin{pmatrix}
+0 & 1 & 0\\
+1 & -4 & 1\\
+0 & 1 & 0\\
+\end{pmatrix}\qquad
+\begin{pmatrix}
+1 & 1 & 1\\
+1 & -8 & 1\\
+1 & 1 & 1\\
+\end{pmatrix}
+$$
+## LoG Operator
+It is obvious that the operator taking the second derivative might be too sensitive towards noises. Therefore, we have a new operator which does not have the disadvantage of the Laplace operator and have the advantage of it. We first apply a Gauss Filter to the image then apply the Laplace Operator.
+$$
+\Delta [G_\sigma (x,y) * f(x,y)] = [\Delta G_\sigma (x,y)] * f(x,y) = LoG * f(x,y)\\
+\begin{pmatrix}
+-2 & -4 & -4 & -4 & -2\\
+-4 & 0 & 8 & 0 & -4\\
+-4 & 8 & 24 & 8 & -4\\
+-4 & 0 & 8 & 0 & -4\\
+-2 & -4 & -4 & -4 & -2\\
+\end{pmatrix}
+$$
+## Canny Operator
+An operator that could get continous boundary curve.
+1. Filt and Differentiate
+$$
+H(x,y) = \nabla (G(x,y) * f(x,y)) = \nabla G(x,y) * f(x,y)\\
+\nabla G = \begin{pmatrix}\frac{\partial G}{\partial x} \\ \frac{\partial G}{\partial y}\end{pmatrix}\qquad G(x,y) = \frac{1}{\sqrt {2\pi} \sigma}e^{-\frac{x^2+y^2}{\sigma ^2}}
+$$
+2. Compute Gradient

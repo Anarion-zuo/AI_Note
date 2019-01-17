@@ -88,7 +88,7 @@ $$
 \end{pmatrix}
 \end{gather</em>}
 $$
-The Gauss Module is symmetric. Nearer it is to the center, larger the number is, which reminds us of the Gauss distribution.</p>
+The Gauss Module is symmetric. Nearer it is to the center, larger the number is, because it follows the Gauss distribution upon X and Y axis.</p>
 <h2 id="median-filtering">Median Filtering</h2>
 <p>For some noise called the Salt-and pepper Noise, the median filter has a good effect. It follows the following steps:</p>
 <ol>
@@ -154,7 +154,89 @@ void medianBlur( InputArray src, OutputArray dst, int ksize );
 
 //&#x5F62;&#x6001;&#x5B66;&#x6EE4;&#x6CE2;
 void morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor=Point(-1,-1), int iterations=1, int borderType=BORDER_CONSTANT, const Scalar&amp; borderValue=morphologyDefaultBorderValue() );
-//op: MORPH_OPEN &#x2013; &#x5F00;&#x8FD0;&#x7B97;; MORPH_CLOSE &#x2013; &#x95ED;&#x8FD0;&#x7B97; &#x7B49;</code></pre></article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
+//op: MORPH_OPEN &#x2013; &#x5F00;&#x8FD0;&#x7B97;; MORPH_CLOSE &#x2013; &#x95ED;&#x8FD0;&#x7B97; &#x7B49;</code></pre><h1 id="boundary">Boundary</h1>
+<p>There is lots of information contained inside the boundary of an image. In fact, most of the information we get from an image comes from boundaries. To find the boudaries inside an image, we take the derivative of the image to find the maximun value of the derivative, where the color of the image changes rapidly. Therefore, some kind of boundary can be found.</p>
+<h2 id="robert-operator">Robert Operator</h2>
+<p>$$
+\begin{gather<em>}
+x-axis:\quad \begin{pmatrix}
+1 &amp; 0 \ 0 &amp; -1 \
+\end{pmatrix}\qquad
+y-axis:\quad \begin{pmatrix}
+0 &amp; 1 \ -1 &amp; 0 \
+\end{pmatrix}
+\end{gather</em>}
+$$
+To write the formular in a mathmatical form:
+$$
+E_x = \frac{\partial f(x,y)}{\partial x} = f(x,y)-f(x-1,y-1)\
+E_y = \frac{\partial f(x,y)}{\partial x} = f(x-1,y)-f(x,y-1)
+$$
+Simply, we take the partial derivative at each position of the image.</p>
+<h2 id="sobel-operator">Sobel Operator</h2>
+<p>A better way to compute partial derivative.
+$$
+x-axis:
+\begin{pmatrix}
+-1 &amp; -2 &amp; -1 \
+0 &amp; 0 &amp; 0 \
+1 &amp; 2 &amp; 1 \
+\end{pmatrix} \quad
+y-axis:
+\begin{pmatrix}
+-1 &amp; 0 &amp; 1 \
+-2 &amp; 0 &amp; 2 \
+-1 &amp; 0 &amp; 1 \
+\end{pmatrix}
+$$
+$$
+\frac{\partial f(x,y)}{\partial x} = [f(x-1,y+1)+2f(x,y+1)+f(x+1,y+1)]-[f(x-1,y-1)+2f(x,y-1)+f(x+1,y-1)]\
+\frac{\partial f(x,y)}{\partial y} = [f(x-1,y-1)+2f(x-1,y)+f(x-1,y+1)]-[f(x+1,y-1)+2f(x+1,y)+f(x+1,y+1)]
+$$
+To take the result as a vector:
+$$
+M(x,y) = \sqrt {E_{x}^2(x,y) + E^2_y(x,y)}\
+\theta (x,y) = tan^{-1}\frac{E_y(x,y)}{E_x(x,y)}
+$$</p>
+<h2 id="laplace-operator">Laplace Operator</h2>
+<p>By taking the first derivative, we find the maximun value thereby find the boundary. It is also a valid method that we take the second derivative thereby find the zero of the second derivative, thereby find the critical point of the first derivative.
+$$
+\Delta f(x,y) = \nabla ^2 f(x,y) = \frac{\partial ^2 f}{\partial x^2} + \frac{\partial ^2 f}{\partial y^2}\
+= f(x+1,y) + f(x-1,y) + f(x,y+1) + f(x,y-1) - 4f(x,y)\
+\begin{pmatrix}
+0 &amp; 1 &amp; 0\
+1 &amp; -4 &amp; 1\
+0 &amp; 1 &amp; 0\
+\end{pmatrix}\qquad
+\begin{pmatrix}
+1 &amp; 1 &amp; 1\
+1 &amp; -8 &amp; 1\
+1 &amp; 1 &amp; 1\
+\end{pmatrix}
+$$</p>
+<h2 id="log-operator">LoG Operator</h2>
+<p>It is obvious that the operator taking the second derivative might be too sensitive towards noises. Therefore, we have a new operator which does not have the disadvantage of the Laplace operator and have the advantage of it. We first apply a Gauss Filter to the image then apply the Laplace Operator.
+$$
+\Delta [G_\sigma (x,y) * f(x,y)] = [\Delta G_\sigma (x,y)] * f(x,y) = LoG * f(x,y)\
+\begin{pmatrix}
+-2 &amp; -4 &amp; -4 &amp; -4 &amp; -2\
+-4 &amp; 0 &amp; 8 &amp; 0 &amp; -4\
+-4 &amp; 8 &amp; 24 &amp; 8 &amp; -4\
+-4 &amp; 0 &amp; 8 &amp; 0 &amp; -4\
+-2 &amp; -4 &amp; -4 &amp; -4 &amp; -2\
+\end{pmatrix}
+$$</p>
+<h2 id="canny-operator">Canny Operator</h2>
+<p>An operator that could get continous boundary curve.</p>
+<ol>
+<li>Filt and Differentiate
+$$
+H(x,y) = \nabla (G(x,y) * f(x,y)) = \nabla G(x,y) * f(x,y)\
+\nabla G = \begin{pmatrix}\frac{\partial G}{\partial x} \ \frac{\partial G}{\partial y}\end{pmatrix}\qquad G(x,y) = \frac{1}{\sqrt {2\pi} \sigma}e^{-\frac{x^2+y^2}{\sigma ^2}}
+$$</li>
+<li>Compute Gradient</li>
+</ol>
+</article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>
 </div>
