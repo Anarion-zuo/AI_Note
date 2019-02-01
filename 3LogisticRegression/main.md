@@ -72,7 +72,7 @@ L2:
 $$
 ||w||_2^2 = \sum_{j=1}^2 w_j^2
 $$
-In Scikit-Learn, the constant \lambda is differently placed.
+In Scikit-Learn, the constant $\lambda$ is differently placed.
 $$
 J(w;\lambda) = C\sum_{i=1}^N L(y_i,\mu(x_i;w)) + R(w)
 $$
@@ -105,4 +105,101 @@ $$
 3. Compute moving direction: $d_t = H^{-1}_tg_t\Leftarrow H_td_t=g_t$;
 4. Compute the new x: $x_{t+1} = x_t - d_t$;
 5. Check if the result is close enough.
-### Quasi-Newton Method
+## Quasi-Newton Method
+- In some cases with so many variables, the Hessian Matrix is either to hard to compute or unable to remain positive definite and not invertible.
+- Hence, we have some quasi method, by using not the second derivatives to construct a Hessian Matrix or its inverse matrix.
+### Valid Circumstances
+- After $t$ times of iteration, we get result $x_{t+1}$;
+- Write down the second degree Taylor Expansion:
+$$
+f(x) = f(x_{t+1}) + (x - x_{t+1})\nabla f(x_{t+1}) + \frac{1}{2}(x - x_{t+1})^T\nabla ^2 f(x_{t+1})(x - x_{t+1})
+$$
+- Take gradient of both sides:
+$$
+\nabla f(x) = \nabla f(x_{t+1}) + \nabla^2f(x_{t+1})(x - x_{t+1})
+$$
+- Take $x = x_t$, $g_t = \nabla f(x_t)$, $H_t = \nabla^2f(x_t)$:
+$$
+g_{t+1} - g_t = H_{t+1}(x_{t+1} - x_t)
+$$
+- Notations:
+$$
+s_t = x_{t+1} - x_t,\qquad y_t = g_{t+1} - g_t,\qquad y_t = H_{t+1}s_t
+$$
+- Take $B$ as approximation of $H$, $D$ as approximation of $H^{-1}$:
+$$
+y_t = B_{t+1}s_t\text{ or }s_t = D_{t+1}y_t
+$$
+Only when H satisfy the term above, can we apply the Quasi-Newton Method.
+### BFGS (Broyden, Fletcher, Goldfarb, Shanno's Method)
+The idea is to get close to the Hessian Matrix through iteration.
+$$
+B_{t+1} = B_t + \Delta B_t,\quad B_0 = E
+$$
+The initial B is set, hence the key is to construct $\Delta B_t$.
+
+Take $\Delta B_t = \alpha uu^T + \beta vv^T$:
+$$
+y_t = B_{t+1}s_t = (B_t + \Delta B_t)s_t = B_ts_t + \Delta B_ts_t=B_ts_t+\alpha uu^Ts_t+\beta vv^Ts_t = B_ts_t + u(\alpha u^T s_t) + v(\beta v^Ts_t)
+$$
+Suppose $\alpha u^Ts_t=1,\beta v^Ts_t=-1$:
+$$
+\alpha = \frac{1}{u^Ts_t},\qquad \beta = -\frac{1}{v^Ts_t}\\
+y_t = B_ts_t + u - v \qquad \Rightarrow \qquad u - v = y_t - B_ts_t
+$$
+Suppose $u - y_t$, $v = B_ts_t$:
+$$
+\alpha = \frac{1}{y_t^Ts_t},\qquad \beta = -\frac{1}{(B_ts_t)^Ts_t}\\
+\Delta B_t = \frac{y_ty_t^T}{y_t^Ts_t} - \frac{B_ts_t(B_ts_t)^T}{s_t^TB_t^Ts_t}\\
+(Sherman-Morrison)D_{t+1} = (E - \frac{s_ty_t^T}{y_t^Ts_t})D_t(E - \frac{y_ts_t^T}{y_t^Ts_t}) + \frac{s_ts_t^T}{y_t^Ts_t}
+$$
+### In Conclusion
+1. $t = 0,D_0=E$;
+2. Compute moving direction: $d_t = D_tg_t$;
+3. Compute a new $x$: $x_{t+1} = x_t - d_t$;
+4. $s_t = d_t$;
+5. Check if $||g_{t+1}||\le \epsilon$, decide whether to end the iteration;
+6. Compute $y_t = g_{t+1} - g_t$;
+7. $t = t + 1$, iteration continues.
+### L-BFGS (Limited Memory BFGS)
+Alter the original algorithm to make extra space complexity to be constant. 
+- Simplify the Hesssian's expression:
+$$
+\rho_t = \frac{1}{y_t^Ts_t},V_t = E - \rho_ty_ts_t^T\\
+D_{t+1} = V_t^TD_tV_t + \rho_ts_ts_t^T
+$$
+- Use a size-limited queue to store $\rho$s and $V$s.
+### In Conclusion
+1. Initialize:
+$$
+\delta = \begin{cases}
+    0 & if\quad t\le m\\
+    t - m & otherwise
+\end{cases},\quad L = \begin{cases}
+    t & if\quad t\le m\\
+    m & otherwise
+\end{cases}
+$$
+2. Backward iteration:
+
+    for $i=L-1,L-2,...,1,0$:
+
+    $\qquad j = i + \delta$;
+
+    $\qquad a_i = \rho_js_j^Tq_{i+1}$;
+
+    $\qquad q_i = q_{i+1} - \alpha_iy_i$;
+
+3. Forward iteration:
+
+    $r_0 = D_0q_0$;
+
+    for $i=0,...,L-1$:
+
+    $\qquad j=i+\delta$;
+
+    $\qquad\beta_j=\rho_jy_j^Tr_i$;
+
+    $\qquad r_{i+1}=r_i+(\alpha_i-\beta_i)s_i$;
+
+4. $r_L=D_tg_t$
