@@ -203,3 +203,72 @@ $$
     $\qquad r_{i+1}=r_i+(\alpha_i-\beta_i)s_i$;
 
 4. $r_L=D_tg_t$
+
+## Better Solution for Logistic Model
+### Derivatives
+$$
+g(w) = \nabla J(w) = \sum_{i=1}^N(\mu_i - y_i)x_i = X^T(\mu - y)\\
+H(w) = \frac{\partial g(w)}{\partial w} = \sum_{i=1}^N x_i^T\mu_i(1-\mu_i)x_i = X^TSX,S = diag(\mu_i(1-\mu_i))
+$$
+### Newton's method
+$$
+w_{t+1} = w_t - H^{-1}(w_t)g(w) = (X^TS_tX)^{-1}X^TS_tz_t
+$$
+The formula is similar to Least Square method. Hence, Newton's method in Logistic model is also called Iteratively Reweighted Least Square (IRLS).
+## Multi-classifying
+### One-vs-Rest(OvR)
+Namely, take one of the categories as one category and the rest as another. 
+### Multinoulli/Categorical Distribution
+Bernoulli distribution has only 2 kinds of output whereas Multinoulli has more kinds of output.
+| $X$ | $x_1$ | $x_2$ | $...$ | $x_N$ |
+|:-:|:-:|:-:|:-:|:-:|
+|$\theta$|$\theta_2$|$\theta_3$|$...$|$\theta_N$|
+Write the distribution continuously.
+$$
+\sum_{c=1}^C\theta_c=1,Cat(y,\theta)=\prod_{c=1}^C\theta^{y_c}_c
+$$
+Also known as one-hot encoding.
+### Softmax
+Expend the idea of sigmoid function to be softmax function.
+$$
+\sigma(z_c) = \frac{e^{z_c}}{\sum_{c'=1}^C e^{z_{c'}}},\mu_c=p(y=c|x,w)=\frac{e^{w_c^Tx}}{\sum_{c'=1}^C e^{w_{c'}^Tx}}
+$$
+Maximum likelihood estimation:
+$$
+l(M) = \sum_{i=1}^N\ln\prod_{c=1}^C\mu_{ic}^{y_{ic}}=\sum_{i=1}^N\sum_{c=1}^Cy_{ic}\ln\mu_{ic}
+$$
+Softmax Loss:
+$$
+J(w) = -l(M) = \sum_{i=1}^N(\sum_{c=1}^Cy_{ic}w_c^Tx-\ln\sum_{c=1}^Ce^{w_{c'}^Tx})
+$$
+## Unbalanced Data Sample
+Often, some categories give less data sample than other categories. When the difference of the amount of data sample is too significant, we may do something to balance the categories.
+### Undersampling
+Randomly take a part of the larger sample as a sample, which might cause some damage of information and some error.
+### OverSampling
+Randomly repeatedly rake a part of the smaller sample as a sample, which might cause the weight of certain parts of the sample to be unjustly magnified and the model to lean upon those parts.
+### EasyEnsemble
+Generate n samples by n times of under-sampling from larger samples, by which generate n models. The output of the final model is the average of these models.
+### BalanceCascade
+Generate a sample as large as the small sample by under-sampling from larger samples. Generate a model with this sample and other smaller samples. Select those ones of mistakes and fix the model with other part of the larger sample.
+### Synthetic Minority Over-sampling Technique (SMOTE)
+- Select a data frame in a smaller sample with index i and vector $x_i$.
+- Find K neighbours of $x_i$ in the smaller sample $x_{i(near)},near\in\{1,...,K\}$.
+- Randomly select a sample in the neighbours $x_{i(nn)}$. And generate a random number between 0 and 1, $\zeta$,
+$$
+x_{i1} = (1-\zeta)x_i + \zeta x_{i(near)}
+$$
+whereas $x_i$ is a point on the straight line between all of the $x_{i(nn)}$ as an insertion.
+- SMOTE algorithm can prevent errors from over fitting. However it is not so valid for high dimensional cases and might cause over lap among categories. In order to eliminate the disadvantage of SMOTE, we have Borderline-SMOTE and many other fixing method.
+### Cost-Sensitive Learning
+Build a cost matrix:
+|| Prediction wrong | Prediction right|
+|:-:|:-:|:-:|
+| Predict 0 | $C_{00}$ | $C_{01}$ |
+Predict 1 | $C_{10}$ | $C_{11}$ |
+#### Class Weight
+1. Regardless of class weights;
+2. Balanced mode: Compute class weight according to the amount of certain data samples;
+3. Manually set.
+
+## Evaluation
