@@ -317,5 +317,12 @@ MCC\in [-1,1]
 $$
 When the samples are extremely unbalanced, the accuracy score is not a valid evaluation. We should apply the MCC and other methods.
 
-In the process of classifying, for each returned probability value from the model, we deem the object to be in a certain category according to a certain threshold. Namely, if the probability is larger than the threshold, we deem it to be in one category, and if not, the other. In order to find the best threshold value, we plug and try different values into the model and draw ROC curve. The closer the curve is to left up, the better the model is.
+In the process of classifying, for each returned probability value from the model, we deem the object to be in a certain category according to a certain threshold. Namely, if the probability is larger than the threshold, we deem it to be in one category, and if not, the other. In order to find the best threshold value, we plug and try different values into the model and draw ROC curve. The closer the curve is to the left up angle, the better the model is. However, the shape of the curve can only be told by human eyes, not for machines to compare its magnitude. In order to have something for the machine to deal with, we compute the area under the curve to determine whether the model is good enough accurately. Another advantage of ROC is that the curve does not change easily according to the samples.
 ![ROC](pic/1.png)
+### Precision and Recall (PR)(OvR)
+The PR curve is applied when estimating rare events such as recommending system and information searching. Specifically, it is when $N_-$ is very small and ROC is too close to x-axis. The closer the curve is to the right up angle, the better the model is.
+![PR](pic/2.jpg)
+Similarly, a number can also be extracted from the curve.
+$$
+AP = \sum_{k=0}^nP(k)\Delta R(k)
+$$
