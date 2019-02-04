@@ -272,3 +272,50 @@ Predict 1 | $C_{10}$ | $C_{11}$ |
 3. Manually set.
 
 ## Evaluation
+### Loss Function
+The value of the loss can be taken as an approach of evaluation. The less the better.
+$$
+\ln J(Y,P) = -\frac{1}{N}\sum_{i=0}^N\sum_{c=0}^Cy_{ic}\ln p_{ic}
+$$
+- $C$ for the number of categories. $y_i$ for the vector of one-hot encoding. $p_{ic}$ for the probability for the output to be the $i$th sample of category $c$.
+### Zero-one Loss
+The zero-one loss function's average output over all test result can serve as error rate.
+$$
+\frac{1}{N}\sum_{i=0}^NI(\hat{y}_i \ne y_i)
+$$
+Same goes for accuracy score:
+$$
+\frac{1}{N}\sum_{i=0}^NI(\hat{y}_i = y_i)
+$$
+### Hinge Loss
+$$
+\frac{1}{N}\sum_{i=0}^NI(1 - \hat{y}_iy_i)
+$$
+### Confusion Matrix
+$a_{ij}$ stands for having an object belongs to $i$th category classified to $j$th property by the model. A good enough model should have a confusion matrix with many large numbers on the diag.
+### ROC/AUC(OvR)
+| | $\hat{y} = 1$ | $\hat{y} = 0$ | $\Sigma$ |
+|:-:|:-:|:-:|:-:|
+| $y = 1$ | True Positive(TP) | False Negative(FN) | $N_+$ |
+| $y = 0$ | False Positive(FP) | True Negative(TN) | $N_-$ |
+| $\Sigma$ | $\hat{N}_+$ | $\hat{N}_+$ | |
+$$
+Precision = \frac{TP}{\hat{N}_+},
+TPR = Recall = \frac{TP}{N_+},
+FPR = \frac{FP}{N_-}\\
+F1 = 2\frac{Precision \times Recall}{Precision + Recall} = \frac{TP}{2TP + FP + FN}
+$$
+Often, when we have high precision, we have low recall. Backward also. Hence, we need a balanced factor of these 2 $F1$.
+$$
+Matthews\quad Correlation\quad Coefficient = MCC = \frac{TP\times TN - FP\times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}\\
+MCC = \begin{cases}
+    1 & \Rightarrow perfect\quad model\\
+    0 & \Rightarrow random\quad model\\
+    -1 & \Rightarrow kidding\quad model(\text{outputs are exactly opposite to the real world})
+\end{cases}
+MCC\in [-1,1]
+$$
+When the samples are extremely unbalanced, the accuracy score is not a valid evaluation. We should apply the MCC and other methods.
+
+In the process of classifying, for each returned probability value from the model, we deem the object to be in a certain category according to a certain threshold. Namely, if the probability is larger than the threshold, we deem it to be in one category, and if not, the other. In order to find the best threshold value, we plug and try different values into the model and draw ROC curve. The closer the curve is to left up, the better the model is.
+![ROC](pic/1.png)
